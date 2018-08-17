@@ -1,1 +1,7 @@
-var i = 0;
+import json
+
+entrada = {[
+	{"nome": "Lugoj",
+	"custo": 244},
+	{}
+]}
