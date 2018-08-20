@@ -1,6 +1,8 @@
 import json
 
-entrada = {[
+obj =''' {
+
+	"lista" :[
 	{"nome": "Arad",
 	"heuristica": 366,
 	"arestas": [{"proximo": "Sibiu",
@@ -140,6 +142,12 @@ entrada = {[
 	"arestas": [{"proximo": "Arad",
 				"custo": 75},
 				{"proximo": "Oradea",
-				"custo": 71}]},
+				"custo": 71}]}
 	
 ]}
+'''
+
+
+entrada = json.loads(obj);
+
+print(entrada['lista'][0]['nome']);
