@@ -147,7 +147,27 @@ obj =''' {
 ]}
 '''
 
-
 entrada = json.loads(obj);
 
-print(entrada['lista'][0]['nome']);
+
+
+resposta = {
+	"nos": [
+	]
+}
+
+nome_inicial = 'Lugoj'
+nome_final = 'Bucharest'
+
+no_inicial = ''
+
+for no in entrada['lista']:
+	if no['nome'] == nome_inicial:
+		print('No Inicial: ' + no['nome'])
+		no_inicial = no
+		print(no_inicial)
+
+
+
+
+
