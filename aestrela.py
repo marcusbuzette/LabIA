@@ -152,6 +152,7 @@ lista = entrada['lista'];
 
 
 
+
 resposta = {
 	"nos": [
 	]
@@ -174,33 +175,106 @@ def buscarEstado(nome):
 		if no['nome'] == nome:
 			#print('No Inicial: ' + no['nome'])
 			return no;
-		else:
-			pass
+	
+
+	return ''
+
+def verifica_prox_estado(nome_estado): #verifica se o proximo estado e valido
+	#verifica se a o estadoja esta no array resposta
+	for no in resposta['nos']:
+		if no['nome'] == nome_estado:
+			return False;
+
+
+	return True;
+
+def verifica_heuristica(estado,f):
+
+
+
+	if estado['heuristica'] + estado_atual['custo'] < f:
+		return True;
+
+	else:
+		return False;
+
+
+def verifica_final(nome):
+
+	if nome == estado_final:
+		return False;
+
+	else:
+		return True;
+
+
+
+
 
 
 no_inicial = buscarEstado(estado_inicial)
-estado_atual = input(no_inicial);
-#print(no_inicial)
-resposta['nos'].append(no_inicial);
-print(resposta['nos'][0]['nome']);
-	
 
+print('--------------')
+estado_atual = no_inicial;
+
+#(no_inicial)
+#print(resposta['nos'][0]['nome']);
+
+aux_h = 0
+aux_e = ''
 
 
 
 #Busca em A*
 
-while estado_atual['nome'] != estado_final:
+while verifica_final(estado_atual['nome']):
+	
+	#print(estado_atual['nome']);
 	for proximo in estado_atual['arestas']:
-		f = 0
-		if f == 0: #se for o estado inicial
-			f = estado_atual['heuristica'] + proximo['custo'];
-			print(f);
-		else: # se nao for o estado inicial
-			if estado_atual['heuristica'] + proximo['custo'] < f:
-				f = estado_atual['heuristica'] + proximo['custo'];
-				estado_anterior = estado_atual; # o anteriar e o atual e o atual sera o proximo
-				estado_atual = input(buscarEstado(proximo['proximo'])); #atuliaza do estado para o proximo
+		
+		
+
+
+		#se for primeira aresta
+		if aux_h == 0:
+			aux_h = f_total+ estado_atual['heuristica'] + proximo['custo'];
+			aux_e = proximo;
+
+		# se nao verifica se a nova aresta tem heuristica melhor
+		else:
+			if f_total+ estado_atual['heuristica'] + proximo['custo'] < aux_h and verifica_prox_estado(estado_atual['nome']) :
+				aux_h = f_total+ estado_atual['heuristica'] + proximo['custo'];
+				aux_e = proximo;
+
+
+	#print(estado_atual['nome'])
+	#print(aux_h)
+	#print(aux_e)
+
+	print(resposta['nos']['nome'])
+
+
+	prox_estado = buscarEstado(aux_e['proximo']);
+	
+
+	resposta['nos'].append(estado_atual);
+	estado_atual = prox_estado;
+
+	aux_h = 0
+	aux_e = ''
+			
+					
+
+
+
+			
+			
+				
+
+		
+			
+
+	
 
 
 
