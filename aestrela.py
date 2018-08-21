@@ -148,6 +148,7 @@ obj =''' {
 '''
 
 entrada = json.loads(obj);
+lista = entrada['lista'];
 
 
 
@@ -156,16 +157,55 @@ resposta = {
 	]
 }
 
-nome_inicial = 'Lugoj'
-nome_final = 'Bucharest'
-
+estado_inicial = 'Lugoj'
+estado_final = 'Bucharest'
 no_inicial = ''
+estado_atual = ''
+estado_anterior = ''
 
-for no in entrada['lista']:
-	if no['nome'] == nome_inicial:
-		print('No Inicial: ' + no['nome'])
-		no_inicial = no
-		print(no_inicial)
+f_total = 0;
+g = 0;
+h = 0;
+
+#Buscar no estados
+
+def buscarEstado(nome):
+	for no in lista:
+		if no['nome'] == nome:
+			#print('No Inicial: ' + no['nome'])
+			return no;
+		else:
+			pass
+
+
+no_inicial = buscarEstado(estado_inicial)
+estado_atual = input(no_inicial);
+#print(no_inicial)
+resposta['nos'].append(no_inicial);
+print(resposta['nos'][0]['nome']);
+	
+
+
+
+
+#Busca em A*
+
+while estado_atual['nome'] != estado_final:
+	for proximo in estado_atual['arestas']:
+		f = 0
+		if f == 0: #se for o estado inicial
+			f = estado_atual['heuristica'] + proximo['custo'];
+			print(f);
+		else: # se nao for o estado inicial
+			if estado_atual['heuristica'] + proximo['custo'] < f:
+				f = estado_atual['heuristica'] + proximo['custo'];
+				estado_anterior = estado_atual; # o anteriar e o atual e o atual sera o proximo
+				estado_atual = input(buscarEstado(proximo['proximo'])); #atuliaza do estado para o proximo
+
+
+
+	
+
 
 
 
