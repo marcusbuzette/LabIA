@@ -191,16 +191,6 @@ def verifica_prox_estado(nome_estado): #verifica se o proximo estado e valido
 
 	return True;
 
-def verifica_heuristica(estado,f):
-
-
-
-	if estado['heuristica'] + estado_atual['custo'] < f:
-		return True;
-
-	else:
-		return False;
-
 
 def verifica_final(nome):
 
@@ -237,37 +227,56 @@ aresta = 0;
 
 while verifica_final(estado_atual['nome']):
 	
-	print('Estado Atual WHILE: '+estado_atual['nome']);
+	#print('Estado Atual: '+estado_atual['nome']);
 	for proximo in estado_atual['arestas']:
 		
 		
-		print('proximo do  for:  ' +proximo['proximo'])
+		#print('Proximo Aresta:  ' +proximo['proximo'])
 		
 		#se for primeira aresta
 		if aresta == 0:
+
+			#print('Primeira aresta Verificada: '+ proximo['proximo'])
 			if  verifica_prox_estado(proximo['proximo']) :
+
+				print('\n\n\n')
+				print('Estado Atual: ' +  estado_atual['nome'])
+				print('Proximo Analisado: ' + proximo['proximo'])
+				print('G(n) = ' + str(proximo['custo']))
+				print('H(n) = ' + str(get_heuristica_proximo_estado(proximo['proximo'])))
+				
 				
 				aux_h = f_total+ get_heuristica_proximo_estado(proximo['proximo'])+ proximo['custo'];
 				aux_e = proximo;
-				print(proximo)
+				print('F(n) = ' + str(aux_h))
+				#print("Aresta aceita")
 				aresta+=1;
 			
 
 		# se nao verifica se a nova aresta tem heuristica melhor
 		else:
 
-			print("ELSE:   "+proximo['proximo'])
+			#print("ELSE:   "+proximo['proximo'])
 
 			if f_total+ get_heuristica_proximo_estado(proximo['proximo']) + proximo['custo'] < aux_h and verifica_prox_estado(proximo['proximo']) :
 				
-				print(aux_h);
+
+				print('\n\n\n')
+				print('Estado Atual: ' +  estado_atual['nome'])
+				print('Proximo Analisado: ' + proximo['proximo'])
+				print('G(n) = ' + str(proximo['custo']))
+				print('H(n) = ' + str(get_heuristica_proximo_estado(proximo['proximo'])))
+				
+				#print("Aresta aceita")
+				#print('Antes: ' + aux_h);
 				aux_h = f_total+ estado_atual['heuristica'] + proximo['custo'];
 				aux_e = proximo;
-				print(aux_h);
+				print('F(n) = ' + str(aux_h))
+				#print('Depois' + aux_h);
 				aresta+=1;
 
-		print('\n')
-		time.sleep(5);
+		
+		time.sleep(2);
 
 
 	#print(estado_atual['nome'])
